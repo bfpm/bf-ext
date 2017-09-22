@@ -1,0 +1,27 @@
+{
+  "name": "bf-ext",
+  "version": "0.0.1",
+  "description": "A brainf*ck extension that allows for some extended abilities... In vanilla brainf*ck syntax",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfpm/bf-ext.git"
+  },
+  "author": "Harry Shipton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bfpm/bf-ext/issues"
+  },
+  "homepage": "https://github.com/bfpm/bf-ext#readme",
+  "dependencies": {
+    "bignumber.js": "^4.0.2",
+    "keypress": "^0.2.1",
+    "minimist": "^1.2.0"
+  },
+  "bin": {
+    "bfext": "bin/bfext"
+  }
+}
