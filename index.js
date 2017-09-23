@@ -6,6 +6,8 @@ const keyQueue = new KeyQueue();
 
 const transcoder = require('./transcoder');
 
+const ookToBf = require('./ookToBf');
+
 function validateBrackets(instructions) {
   return instructions.reduce((a, e) => {
     if(e === '[') return ++a;
@@ -58,11 +60,15 @@ function condense(instructions) {
 }
 
 async function init() {
-  const argv = minimist(process.argv.slice(2), {alias: {'input': 'i', 'length': 'l', 'debug': 'd', 'speed': 's'}, default: {'input': 'main.b', 'length': 30000, 'speed': 0}});
+  const argv = minimist(process.argv.slice(2), {alias: {'input': 'i', 'length': 'l', 'debug': 'd', 'speed': 's', 'ook': 'o'}, default: {'input': 'main.b', 'length': 30000, 'speed': 0}});
   argv.l = (typeof argv.l === 'number' && argv.l > 0) ? argv.l : 30000;
   argv.s = (typeof argv.s === 'number' && argv.s >= 0) ? argv.s : 0;
 
-  const contents = condense(fs.readFileSync(argv.i, 'utf8').split('').filter(e => ['+', '-', '.', ',', '[', ']', '>', '<'].includes(e)));
+	let rawArray;
+	if(argv.o) rawArray = ookToBf(fs.readFileSync(argv.i, 'utf8'));
+	else rawArray = fs.readFileSync(argv.i, 'utf8').split('');
+
+  const contents = condense(rawArray.filter(e => ['+', '-', '.', ',', '[', ']', '>', '<'].includes(e)));
 
   if(!validateBrackets(contents)) throw new Error('Non matching brackets');
 
