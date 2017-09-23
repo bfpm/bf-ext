@@ -2,7 +2,6 @@ const fs = require('fs');
 const minimist = require('minimist');
 
 const KeyQueue = require('./KeyQueue.js');
-const keyQueue = new KeyQueue();
 
 const transcoder = require('./transcoder');
 
@@ -60,9 +59,11 @@ function condense(instructions) {
 }
 
 async function init() {
-  const argv = minimist(process.argv.slice(2), {alias: {'input': 'i', 'length': 'l', 'debug': 'd', 'speed': 's', 'ook': 'o'}, default: {'input': 'main.b', 'length': 30000, 'speed': 0}});
+  const argv = minimist(process.argv.slice(2), {alias: {'input': 'i', 'length': 'l', 'debug': 'd', 'speed': 's', 'ook': 'o', 'tick': 't'}, default: {'input': 'main.b', 'length': 30000, 'speed': 0}});
   argv.l = (typeof argv.l === 'number' && argv.l > 0) ? argv.l : 30000;
   argv.s = (typeof argv.s === 'number' && argv.s >= 0) ? argv.s : 0;
+
+	const keyQueue = new KeyQueue(argv.t)
 
 	let rawArray;
 	if(argv.o) rawArray = ookToBf(fs.readFileSync(argv.i, 'utf8'));

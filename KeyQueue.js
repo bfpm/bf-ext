@@ -34,12 +34,23 @@ Object.getOwnPropertyNames(Array.prototype)
 });
 
 module.exports = class KeyQueue {
-  constructor() {
-    this.keyQueue = new EventArray();
+  constructor(tick) {
+		this.tick = tick;
+		this.flag = false;
+		this.keyQueue = new EventArray();
+
+		if(this.tick != null) {
+			setInterval(function() {
+				if(this.flag === false) this.keyQueue.push('\u0000');
+				this.flag = false;
+			}, this.tick);
+		}
+
     keypress(process.stdin);
     process.stdin.on('keypress', (ch, key) => {
       // console.log(key);
       // console.log(ch.charCodeAt(0));
+			this.flag = true;
       this.keyQueue.push(ch);
       if(key && key.ctrl && key.name == 'c') {
         process.stdin.pause();
