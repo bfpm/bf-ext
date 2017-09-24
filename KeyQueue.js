@@ -40,7 +40,7 @@ module.exports = class KeyQueue {
 		this.keyQueue = new EventArray();
 
 		if(this.tick != null) {
-			setInterval(function() {
+			setInterval(() => {
 				if(this.flag === false) this.keyQueue.push('\u0000');
 				this.flag = false;
 			}, this.tick);
