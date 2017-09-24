@@ -64,13 +64,11 @@ module.exports = class KeyQueue {
   getInput() {
     if(this.keyQueue.length > 0) {
       let kC = this.keyQueue.shift().charCodeAt(0);
-      console.log(kC);
       return Promise.resolve(kC);
     } else {
       return new Promise((resolve, reject) => {
         this.keyQueue.once('push', added => {
           let kC = this.keyQueue.shift().charCodeAt(0);
-          console.log(kC)
           resolve(kC);
         });
       });
