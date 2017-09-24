@@ -1,6 +1,6 @@
 {
   "name": "bf-ext",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A brainf*ck extension that allows for some extended abilities... In vanilla brainf*ck syntax",
   "main": "index.js",
   "scripts": {
