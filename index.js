@@ -94,7 +94,14 @@ async function init() {
       progCount++;
     } else if(instruction === '[') {
       if(tape[tapeCount] === 0) {
-        progCount = contents.indexOf(']', progCount);
+				let bCount = 0;
+				for(let i = progCount; i < contents.length; i++) {
+					if(contents[i] === '[') bCount++;
+					else if(contents[i] === ']') bCount--;
+
+					if(bCount === 0) break;
+					progCount++;
+				}
       } else {
         loopStack.push(progCount);
       }
